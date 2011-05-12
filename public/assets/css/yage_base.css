@@ -1,0 +1,59 @@
+@CHARSET "ISO-8859-1";
+
+body
+{
+	background-color: #f0f0f0;
+	color: #444;
+	margin: 0;
+	padding: 0;
+	font-family: arial, sans-serif;
+	border-top: 5px solid #2FA2FF;
+}
+
+
+#top
+{
+	background-color: #373C3F;
+	padding: 20px;
+	color: #fff;
+	border-bottom: 1px solid #fff;
+	/*olor: #46A397;*/
+}
+
+#top h1
+{
+	padding: 0;
+	margin: 0;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 24px;
+	color: #fff;
+}
+
+#top span
+{
+	font-size: 11px;
+	color: #7D898F;
+	font-style: italic;
+	padding-left: 10px;
+}
+
+#content
+{
+	padding: 20px;
+	font-size: 12px;
+}
+
+#content .error
+{
+	background: url(../img/icons/exclamation-red.png) no-repeat top left transparent;
+	padding-left: 25px;	
+}
+
+#footer
+{
+	border-top: 1px solid #ccc;
+	padding: 20px;
+	color: #777;
+	font-size: 11px;
+}

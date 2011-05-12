@@ -1,0 +1,38 @@
+@CHARSET "ISO-8859-1";
+
+body
+{
+	background-color: #EFEFEF;
+	color: #444;
+	font-family: arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+#top
+{
+	padding: 20px;
+	background-color: #DFDFDF;
+	border-bottom: 1px solid #fff;
+}
+
+#top h1
+{
+	margin: 0;
+	padding: 0;
+	font-size: 24px;
+	color: #444;
+	font-weight: normal;
+}
+
+#content
+{
+	padding: 20px;
+	font-size: 12px;
+}
+
+#content .error
+{
+	background: url(../img/icons/exclamation-red.png) no-repeat top left transparent;
+	padding-left: 25px;	
+}
