@@ -1,3 +1,3 @@
 <?php
 
-$CONFIG['ROUTE_DEFAULT'] = '/home';
+$CONFIG['ROUTE_DEFAULT'] = '';

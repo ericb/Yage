@@ -49,14 +49,14 @@ class Yage
 	{
 		// If no controller is specified. Route to default Controller.
 		if(!$this->params['request']) {
-			$this->route(C_ROUTE_DEFAULT);
-			exit();
+            $this->route(C_ROUTE_DEFAULT);
+    	    exit(); 
 		}
 		
 		// Set Controller Class Name
 		$letter = strtoupper(substr($this->params['controller'], 0, 1));
 		$this->controllerName = $letter . substr($this->params['controller'], 1) . 'Controller';
-		
+
 		// Check for Controller Existence
 		if(class_exists($this->controllerName)) {
 			eval('$this->controller = new ' . $this->controllerName . '();'); 
@@ -115,15 +115,24 @@ class Yage
 
 	public function initParams() 
 	{
-		if($_GET['request']) { $url_request = $_GET['request']; }
+	    $url_request = '';
+	    $default_route = C_ROUTE_DEFAULT;
+		if(isset($_REQUEST['request'])) { $url_request = $_REQUEST['request']; } elseif(empty($default_route)) { $url_request = 'root'; }
 		preg_match_all('/([^\/]+)/i', $url_request, $matches);
 		
-		$this->params = array(
-			'request' => $url_request,
-			'controller' => $matches[0][0],
-			'action' => $matches[0][1],
-			'id' => $matches[0][2]	
-		);
+		if(count($matches) > 0 && count($matches[0]) > 0) {
+		    $this -> params = array( 'request' => $url_request);
+    		if(isset($matches[0][0])) { $this -> params['controller'] = $matches[0][0]; }
+    		if(isset($matches[0][1])) { $this -> params['action']     = $matches[0][1]; }
+    		if(isset($matches[0][2])) { $this -> params['id']         = $matches[0][2]; }
+        } else {
+            $this -> params = array(
+    			'request'    => '',
+    			'controller' => '',
+    			'action'     => '',
+    			'id'         => ''	
+    		);
+        }
 	}
 	
 	private function initModel()
