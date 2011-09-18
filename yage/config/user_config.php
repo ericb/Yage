@@ -8,7 +8,7 @@ $CONFIG['YAGE_ROOT'] = '/yage';
 $CONFIG['PATH_ROOT'] = 'http://localhost/yage';
 
 // Game Information
-$CONFIG['GAME_TITLE'] = 'Game Title';
+$CONFIG['APP_TITLE'] = 'Application Title';
 
 // Template Information
 $CONFIG['DEFAULT_LAYOUT'] = 'mylayout';

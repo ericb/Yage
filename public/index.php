@@ -3,7 +3,7 @@ session_start();
 require_once "../yage/init.php";
 
 // Include Controllers
-function __autoload($name) {
+function ___autoload($name) {
 	$letter = strtolower(substr($name, 0, 1));
 	$name = $letter . substr($name, 1);
 	

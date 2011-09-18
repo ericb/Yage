@@ -1,5 +1,7 @@
 <?php
 
+require_once('libs/Smarty_3_1_0/libs/Smarty.class.php');
+
 class Yage
 {
 	private $params;
@@ -17,9 +19,12 @@ class Yage
 	public $data;
 	public $plugin;
 	public $db;
+	public $smarty;
 	
 	public function __construct($init=null)
 	{
+	    spl_autoload_register('___autoload');
+	    $this -> smarty = new Smarty();
 		$this->error = new YageError();
 		$this->session = new YageSession();
 		$this->initParams();
@@ -55,11 +60,11 @@ class Yage
 		
 		// Set Controller Class Name
 		$letter = strtoupper(substr($this->params['controller'], 0, 1));
-		$this->controllerName = $letter . substr($this->params['controller'], 1) . 'Controller';
-
+		$this -> controllerName = $letter . substr($this->params['controller'], 1) . 'Controller';
+        
 		// Check for Controller Existence
-		if(class_exists($this->controllerName)) {
-			eval('$this->controller = new ' . $this->controllerName . '();'); 
+		if( class_exists($this -> controllerName) ) {
+			eval('$this->controller = new ' . $this -> controllerName . '();'); 
 		} else {
 			$this->error->addCode('ERR_MISSING_CONTROLLER');
 			$this->error->render();

@@ -28,6 +28,7 @@ define('C_DIR_LAYOUT', C_DIR_VIEW . '/layout');
 define('C_SRC_YAGE', C_DIR_YAGE . '/yage');
 define('C_SRC_ROOT', C_SRC_YAGE . '/core');
 define('C_SRC_PLUGIN', C_SRC_ROOT . '/plugin');
+define('C_SRC_LIBS', C_SRC_ROOT . '/libs');
 define('C_SRC_CONTROLLER', C_SRC_ROOT . '/controller');
 define('C_SRC_MODEL', C_SRC_ROOT . '/model');
 define('C_SRC_VIEW', C_SRC_ROOT . '/view');
@@ -38,7 +39,7 @@ define('C_PATH_ROOT', $CONFIG['PATH_ROOT']);
 define('C_PATH_SRC_ASSETS', C_PATH_ROOT . '/src_assets');
 
 // Game Constants
-define('C_GAME_TITLE', $CONFIG['GAME_TITLE']);
+define('C_APP_TITLE', $CONFIG['APP_TITLE']);
 
 // Database Constants
 define('C_DB_HOST', $CONFIG['DB_HOST']);

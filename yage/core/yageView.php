@@ -15,6 +15,7 @@ class YageView extends Yage
 	public function __construct()
 	{
 		$this->error = new YageError();
+		$this -> smarty = new Smarty();
 	}
 	
 	public function init($controller, $view, $layout)
@@ -32,10 +33,10 @@ class YageView extends Yage
 	private function checkView()
 	{
 		$view = null;
-		if($this->view && file_exists(C_DIR_VIEW . '/' . $this->controller . '/' . $this->view . '.php')) {
-			$view = C_DIR_VIEW . '/' . $this->controller . '/' . $this->view . '.php';
-		} else if (!$this->view && file_exists(C_DIR_VIEW . '/' . $this->controller . '/' . $this->controller . '.php')) {
-			$view = C_DIR_VIEW . '/' . $this->controller . '/' . $this->controller . '.php';
+		if($this->view && file_exists(C_DIR_VIEW . '/' . $this->controller . '/' . $this->view . '.tpl')) {
+			$view = C_DIR_VIEW . '/' . $this->controller . '/' . $this->view . '.tpl';
+		} else if (!$this->view && file_exists(C_DIR_VIEW . '/' . $this->controller . '/' . $this->controller . '.tpl')) {
+			$view = C_DIR_VIEW . '/' . $this->controller . '/' . $this->controller . '.tpl';
 		} else {
 			$this->error->addCode('ERR_MISSING_VIEW');
 			$this->error->render();
@@ -45,8 +46,8 @@ class YageView extends Yage
 	
 	private function checkLayout()
 	{
-		$explicit_layout = C_DIR_LAYOUT . '/' . $this->layout . '.php';
-		$default_layout = C_DIR_LAYOUT . '/' . C_DEFAULT_LAYOUT . '.php';
+		$explicit_layout = C_DIR_LAYOUT . '/' . $this->layout . '.tpl';
+		$default_layout = C_DIR_LAYOUT . '/' . C_DEFAULT_LAYOUT . '.tpl';
 		
 		// Check for explicit layout
 		if($this->layout && file_exists($explicit_layout)) {
@@ -81,23 +82,47 @@ class YageView extends Yage
 	    return false;
 	}
 	
+	private function setTemplateVars( $data = array() ) {
+	    // loop over and dump the $this -> data set.
+	    foreach( $data as $key => $value ) {
+	        $this -> smarty -> assign($key, $value);
+	    }
+	    
+	    
+	    // set system specific vars
+	    $this -> smarty -> assign('C_YAGE_NAME', C_YAGE_NAME);
+	    $this -> smarty -> assign('C_PATH_ROOT', C_PATH_ROOT);
+	    $this -> smarty -> assign('C_YAGE_VERSION', C_YAGE_VERSION);
+	    
+	    // user config vars
+	    $this -> smarty -> assign('C_APP_TITLE', C_APP_TITLE);
+	}
+	
 	public function render($data)
 	{
 		$data['error_codes'] = $this->error->getCodes();
 		$data['errors'] = $this->error->getErrors();
-		$content_for_layout = $this->getView($this->finalView, $data);
-		include $this->finalLayout;
-		$this->error->reset();
+		$this -> setTemplateVars( $data );
+
+		$content_for_layout = $this -> smarty -> fetch( $this -> finalView );
+		$this -> smarty -> assign('content_for_layout', $content_for_layout);
+		$this -> smarty -> display( $this -> finalLayout );
+
+		$this -> error -> reset();
 	}
 	
 	public function renderError()
 	{
-		$this->finalView = C_SRC_VIEW . '/error/error.php';
-		$this->finalLayout = C_SRC_LAYOUT . '/' . C_DEFAULT_SRC_LAYOUT . '.php';
-		$data = array('error_codes' => $this->error->getCodes(), 'errors' => $this->error->getErrors());
+	    $data = array('error_codes' => $this->error->getCodes(), 'errors' => $this->error->getErrors());
+	    $this -> setTemplateVars( $data );
+	    
+		$this->finalView = C_SRC_VIEW . '/error/error.tpl';
+		$this->finalLayout = C_SRC_LAYOUT . '/' . C_DEFAULT_SRC_LAYOUT . '.tpl';
 		
-		$content_for_layout = $this->getView($this->finalView, $data);
-		require_once $this->finalLayout;
+		$content_for_layout = $this -> smarty -> fetch( $this -> finalView );
+		$this -> smarty -> assign('content_for_layout', $content_for_layout);
+		$this -> smarty -> display( $this -> finalLayout );
+		
 		exit();
 	}
 }
