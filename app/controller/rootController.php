@@ -1,6 +1,6 @@
 <?php
 
-class RootController extends YageController
+class RootController extends AppController
 {
 	var $layout = 'mylayout';
 	var $uses = array('home', 'user');
