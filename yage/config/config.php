@@ -7,7 +7,7 @@ require_once "user_config.php";
 if(isset($CONFIG['ENV']) && $CONFIG['ENV']) {
     try {
         require_once "user_config_" . $CONFIG['ENV'] . ".php";
-    } catch( $e ) {}
+    } catch( Exception $e ) {}
 }
 
 require_once "routes.php";
