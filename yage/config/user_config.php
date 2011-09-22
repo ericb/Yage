@@ -15,6 +15,7 @@ $CONFIG['DEFAULT_LAYOUT'] = 'mylayout';
 
 // Database Information
 $CONFIG['DB_HOST'] = 'localhost';
+$CONFIG['DB_PORT'] = '';
 $CONFIG['DB_NAME'] = 'yage';
 $CONFIG['DB_USER'] = 'username';
 $CONFIG['DB_PASS'] = 'password';
