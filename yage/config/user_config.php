@@ -18,3 +18,13 @@ $CONFIG['DB_HOST'] = 'localhost';
 $CONFIG['DB_NAME'] = 'yage';
 $CONFIG['DB_USER'] = 'username';
 $CONFIG['DB_PASS'] = 'password';
+
+/**
+ *  Load Environment Config
+ *  Set to a string value.
+ *
+ *  e.g.
+ *  $CONFIG['ENV'] = 'dev';  // tries to load user_config_dev.php
+ *  $CONFIG['ENV'] = 'prod'; // tries to load user_config_prod.php
+ */
+$CONFIG['ENV'] = false;
