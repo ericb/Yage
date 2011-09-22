@@ -46,6 +46,7 @@ define('C_DB_HOST', $CONFIG['DB_HOST']);
 define('C_DB_USER', $CONFIG['DB_USER']);
 define('C_DB_PASS', $CONFIG['DB_PASS']);
 define('C_DB_NAME', $CONFIG['DB_NAME']);
+define('C_DB_PORT', $CONFIG['DB_PORT']);
 
 // Routes
 define('C_ROUTE_DEFAULT', $CONFIG['ROUTE_DEFAULT']);
