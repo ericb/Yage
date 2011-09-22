@@ -2,7 +2,16 @@
 
 $CONFIG = array();
 require_once "user_config.php";
+
+// determine override configs
+if(isset($CONFIG['ENV']) && $CONFIG['ENV']) {
+    try {
+        require_once "user_config_" . $CONFIG['ENV'] . ".php";
+    } catch( $e ) {}
+}
+
 require_once "routes.php";
+
 
 // YAGE Constants
 define('C_YAGE_NAME', 'Yage');
