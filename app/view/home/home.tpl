@@ -3,5 +3,11 @@
 </p>
 
 <p>
-	Here is some test data passed by the controller: {$passme}
+    Here is a list of names from the database:
 </p>
+
+<ul>
+    {foreach $people as $person}
+            <li>{$person.name}</li>
+    {/foreach}
+</ul>

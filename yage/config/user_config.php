@@ -28,4 +28,4 @@ $CONFIG['DB_PASS'] = 'password';
  *  $CONFIG['ENV'] = 'dev';  // tries to load user_config_dev.php
  *  $CONFIG['ENV'] = 'prod'; // tries to load user_config_prod.php
  */
-$CONFIG['ENV'] = false;
+$CONFIG['ENV'] = 'dev';

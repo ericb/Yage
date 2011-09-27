@@ -17,9 +17,22 @@ class HomeController extends AppController
 	
 	public function action()
 	{
-		$this->set('passme', $this->session->get('test'));
-		$this->data['modeldata'] = $this->Home->testModel();
-		
+	    $names = "'" . implode("','", array('eric', 'konen')) . "'";
+	    $result = $this -> Home -> select(array(
+	        'fields' => array('name', 'test'),
+	        'order' => array('name', 'desc'),
+	        'where' => array(
+	            array('name', 'eric'),
+	            array('name', $names, 'IN', 'OR')
+	        ),
+	        'limit' => 5
+	    ));
+	
+		$people = array();
+        while($r = mysqli_fetch_assoc($result)) {
+            array_push($people, $r);
+        }
+        $this -> set('people', $people);
 		$this->render();
 	}
 	
