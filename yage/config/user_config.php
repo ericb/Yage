@@ -14,6 +14,7 @@ $CONFIG['APP_TITLE'] = 'Application Title';
 $CONFIG['DEFAULT_LAYOUT'] = 'mylayout';
 
 // Database Information
+$CONFIG['USE_DB']  = true;
 $CONFIG['DB_HOST'] = 'localhost';
 $CONFIG['DB_PORT'] = '';
 $CONFIG['DB_NAME'] = 'yage';

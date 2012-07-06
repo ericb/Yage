@@ -51,6 +51,7 @@ define('C_PATH_SRC_ASSETS', C_PATH_ROOT . '/src_assets');
 define('C_APP_TITLE', $CONFIG['APP_TITLE']);
 
 // Database Constants
+define('C_USE_DB',  $CONFIG['USE_DB']);
 define('C_DB_HOST', $CONFIG['DB_HOST']);
 define('C_DB_USER', $CONFIG['DB_USER']);
 define('C_DB_PASS', $CONFIG['DB_PASS']);

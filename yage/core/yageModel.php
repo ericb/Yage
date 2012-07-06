@@ -10,7 +10,7 @@ class YageModel extends Yage
 	
 	public function __construct()
 	{
-		if(!$this->db)
+		if(!$this->db && C_USE_DB)
 		{
 			$this->statement = array();
 			$this->db = new mysqli(C_DB_HOST, C_DB_USER, C_DB_PASS, C_DB_NAME, C_DB_PORT);
@@ -19,7 +19,7 @@ class YageModel extends Yage
 			}
 		}
 		
-        if(empty($this -> table)) {
+        if(empty($this -> table) && C_USE_DB) {
             $this -> table();
         }
 	}
@@ -58,6 +58,26 @@ class YageModel extends Yage
                                     }
                                 } else { 
                                     $values['where'] = "{$o[0]} {$operator} {$o[1]} "; 
+                                }
+                            }
+                            break;
+                            
+                        case 'left_join':
+                            foreach($opt as $o) {
+                                $operator = ' = ';
+                                $type = $this -> getType($o[1]);
+                        	    if($o[3] != 'IN') { $o[2] = $this -> db -> real_escape_string($o[1]); }
+                        	    if($type != 'i' && $o[2] != 'NULL' && $o[2] != 'NULL)' && $o[3] != 'IN') { $o[2] = "'{$o[2]}'"; }
+                        	    if($o[3] == 'IN') { $o[2] = '(' . $o[2] . ')'; }
+                                if(isset($o[3]) && $o[3]) { $operator = " {$o[3]} "; }
+                                if(isset($values['left_join']) && $values['left_join']) { 
+                                    if(isset($o[4]) && $o[4]) {
+                                        $values['left_join'] .= strtoupper($o[4]) . " ON {$o[1]} {$operator} {$o[2]} "; 
+                                    } else {
+                                        $values['left_join'] .= "AND {$o[1]} {$operator} {$o[2]} "; 
+                                    }
+                                } else { 
+                                    $values['left_join'] = "{$o[1]} {$operator} {$o[2]} "; 
                                 }
                             }
                             break;
@@ -133,8 +153,11 @@ class YageModel extends Yage
 	}
 	
 	public function query( $query ) {
-        $result = $this -> db -> query( $query );
-        return $result;
+	    if(C_USE_DB && $this -> db) {
+            $result = $this -> db -> query( $query );
+            return $result;
+        }
+        return false;
 	}
 	
 	public function select( $options = array() ) {
